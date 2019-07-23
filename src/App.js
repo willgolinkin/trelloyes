@@ -4,6 +4,7 @@ import List from './composition/List';
 
 class App extends Component {
   static defaultProps = {
+    //this my answer questions about how being passed as props to other subordinate component functions
     store: {
       lists: [],
       allCards: {},
@@ -14,10 +15,10 @@ class App extends Component {
     const { store } = this.props
     return (
       <main className='App'>
-        <header class="App-header">
+        <header className="App-header">
             <h1>Trelloyes!</h1>
         </header>
-      <div class="App-list">
+      <div className="App-list">
         {store.lists.map(list => (
           <List
             key= {list.id}
@@ -27,7 +28,7 @@ class App extends Component {
         ))}
       </div>
     </main>
-    )
+    );
   }
 }
 

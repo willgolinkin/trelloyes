@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import './index.css';
-import STORE from './store';
+//how does the js know to get store.js from this; there is no store variable decalred in the store file (removed with export)
+//bigger question: is the statement after import the name of the function?
+import STORE from './STORE';
+import App from './App';
 
 
 ReactDOM.render(

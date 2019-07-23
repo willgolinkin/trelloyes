@@ -2,6 +2,7 @@ import React from 'react';
 import './List.css';
 import Card from './Card'
 
+//does list in app.js call the function list here?; this is the trouble spot from the smoke test
 export default function List(props) {
     return (
         <section className="List">
@@ -9,14 +10,14 @@ export default function List(props) {
                 <h2>{props.header}</h2>
             </header>
             <div className="List-cards">
-                <div className={props.children}></div>
-                {props.cards.map((card) =>
-                    <Card
-                        key={card.id}
-                        title={card.title}
-                        content={card.content}
-                    />
-                )};
+                    {props.cards.map((card) => (
+                        <Card
+                            //so where does the card come from, it isn't in store (how is it looping over lists array, how is that array being passed to the function)
+                            key={card.id}
+                            title={card.title}
+                            content={card.content}
+                        />
+                    ))}
                 <button type="button" className="List-add-button">
                     + Add Random Card
                 </button>

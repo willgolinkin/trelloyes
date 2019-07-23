@@ -8,5 +8,7 @@ export default function Card(props) {
             <h3>{props.title}</h3>
             <p>{props.content}</p>
         </div>
-    );
-};
+    )
+}
+
+//can I assume that 'allCards from Store is the 'prop' being passed to function Card ()?
