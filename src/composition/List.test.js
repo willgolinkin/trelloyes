@@ -16,7 +16,7 @@ it('renders without crashing', () => {
     const div = document.createElement('div');
 
     //render the component, this is the actual test, if something is wrong it will fail here
-    ReactDOM.render(<List />, div);
+    ReactDOM.render(<List cards={[{ id: 'a', title: 'First card', content: 'lorem ipsum' }]} header='First list' />, div);
 
     //clean up code
     ReactDOM.unmountComponentAtNode(div);
@@ -24,7 +24,7 @@ it('renders without crashing', () => {
 
 it('renders the UI as expected', () => {
     const tree = renderer
-      .create(<List key="1" header="First list" />)
+      .create(<List key="1" cards = {[{ id: 'a', title: 'First card', content: 'lorem ipsum' }]} header='First list' />)
       .toJSON();
     expect(tree).toMatchSnapshot();  
 });
