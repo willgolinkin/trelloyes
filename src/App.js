@@ -27,9 +27,10 @@ class App extends Component {
 
   handleDeleteCard = (cardId) => {
     console.log('card deleted', { cardId })
-    const lists = this.state.store.lists;
-    const { allCards } = this.state.store.allCards;
+    //there is some issue with the reference here; cannot get access to lists
+    const { lists, allCards } = this.state.store;
     const newLists = lists.map(list => ({
+      //what does the '...' do?
       ...list,
       cardIds: lists.cardIds.filter(id => id !== cardId)
     }));
