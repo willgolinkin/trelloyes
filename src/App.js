@@ -2,17 +2,70 @@ import React, { Component } from 'react';
 import './App.css';
 import List from './composition/List';
 
+function omit(obj, keyToOmit) {
+  return Object.entries(obj).reduce(
+    (newObj, [key, value]) =>
+        key === keyToOmit ? newObj : {...newObj, [key]: value},
+    {}
+  );
+}
+
 class App extends Component {
-  static defaultProps = {
+  /*static defaultProps = {
     //this my answer questions about how being passed as props to other subordinate component functions
     store: {
       lists: [],
       allCards: {},
     }
+  };*/
+
+
+  constructor(props) {
+    super(props)
+    this.state= { store: props.store }
+  }
+
+  handleDeleteCard = (cardId) => {
+    console.log('card deleted', { cardId })
+    const lists = this.state.store.lists;
+    const { allCards } = this.state.store.allCards;
+    const newLists = lists.map(list => ({
+      ...list,
+      cardIds: lists.cardIds.filter(id => id !== cardId)
+    }));
+
+    const newCards = omit(allCards, cardId);
+
+    this.setState({
+      store: {
+        lists: newLists,
+        allCards: newCards,
+      }
+    })
   };
 
+  /*handleDeleteItem = (item) => {
+    console.log('handle delete item called', { item })
+    const newItems = this.state.shoppingItems.filter(itm => itm !== item)
+    this.setState({
+      shoppingItems: newItems
+    })
+  }*/
+
+
+  /*handleAddItem = (itemName) => {
+    console.log('handle add item', { itemName })
+    const newItems = [
+      this.state.shoppingItems, 
+      { name: itemName, checked: false }
+    ]
+    this.setState({
+      shoppingItems: newItems
+    })
+  }*/
+
   render() {
-    const { store } = this.props
+    const { store } = this.state
     return (
       <main className='App'>
         <header className='App-header'>
@@ -24,6 +77,7 @@ class App extends Component {
               key={list.id}
               header={list.header}
               cards={list.cardIds.map(id => store.allCards[id])}
+              onDeleteCard={this.handleDeleteCard}
             />
           ))}
         </div>
