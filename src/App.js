@@ -10,6 +10,16 @@ function omit(obj, keyToOmit) {
   );
 }
 
+const newRandomCard = () => {
+  const id = Math.random().toString(36).substring(2, 4)
+    + Math.random().toString(36).substring(2, 4);
+  return {
+    id,
+    title: `Random Card ${id}`,
+    content: 'lorem ipsum',
+  }
+}
+
 class App extends Component {
   static defaultProps = {
     //this my answer questions about how being passed as props to other subordinate component functions
@@ -45,6 +55,32 @@ class App extends Component {
     })
   }; 
 
+  handleAddRandomCard = (listId) => {
+    console.log('added new card');
+  
+    const newCard = newRandomCard()
+
+    const newLists = this.state.store.lists.map(list => {
+      if(list.id === listId) {
+        return {
+          ...list,
+          cardIds: [...list.cardIds, newCard.id]
+        };
+      }
+      return list;
+    })
+
+    this.setState({
+      store: {
+        lists: newLists,
+        allCards: {
+          ...this.state.store.allCards,
+          [newCard.id]: newCard,
+        }
+      }
+    })
+  }
+  
   /*handleAddItem = (itemName) => {
     console.log('handle add item', { itemName })
     const newItems = [
@@ -74,6 +110,7 @@ class App extends Component {
               header={list.header}
               cards={list.cardIds.map(id => store.allCards[id])}
               onDeleteCard={this.handleDeleteCard}
+              onAddRandomCard={this.handleAddRandomCard}
             />
           ))}
         </div>
