@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import List from './composition/List';
+//import STORE from './STORE';
 
 function omit(obj, keyToOmit) {
   return Object.entries(obj).reduce(
@@ -11,13 +12,13 @@ function omit(obj, keyToOmit) {
 }
 
 class App extends Component {
-  /*static defaultProps = {
+  static defaultProps = {
     //this my answer questions about how being passed as props to other subordinate component functions
     store: {
       lists: [],
       allCards: {},
     }
-  };*/
+  };
 
 
   constructor(props) {
@@ -30,7 +31,7 @@ class App extends Component {
     //there is some issue with the reference here; cannot get access to lists
     const { lists, allCards } = this.state.store;
     const newLists = lists.map(list => ({
-      //what does the '...' do?
+      //what does the '...' do-> passes id and header as individual values
       ...list,
       cardIds: lists.cardIds.filter(id => id !== cardId)
     }));

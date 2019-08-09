@@ -15,4 +15,9 @@ export default function Card(props) {
     )
 }
 
+//unsure of what purpose this serves for the solution.
+Card.propTypes= {
+    onDeleteCard: () => {}
+}
+
 //can I assume that 'allCards from Store is the 'prop' being passed to function Card ()?
