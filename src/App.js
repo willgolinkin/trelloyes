@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import List from './composition/List';
-//import STORE from './STORE';
 
 function omit(obj, keyToOmit) {
   return Object.entries(obj).reduce(
@@ -20,20 +19,20 @@ class App extends Component {
     }
   };
 
-
   constructor(props) {
     super(props)
     this.state= { store: props.store }
   }
 
   handleDeleteCard = (cardId) => {
-    console.log('card deleted', { cardId })
-    //there is some issue with the reference here; cannot get access to lists
+    console.log('card deleted', {cardId});
+    //some issue with the reference here; cardId not being passed
     const { lists, allCards } = this.state.store;
+
     const newLists = lists.map(list => ({
-      //what does the '...' do-> passes id and header as individual values
+      //passes id and header as individual values
       ...list,
-      cardIds: lists.cardIds.filter(id => id !== cardId)
+      cardIds: list.cardIds.filter(id => id !== cardId)
     }));
 
     const newCards = omit(allCards, cardId);
@@ -41,19 +40,10 @@ class App extends Component {
     this.setState({
       store: {
         lists: newLists,
-        allCards: newCards,
+        allCards: newCards
       }
     })
-  };
-
-  /*handleDeleteItem = (item) => {
-    console.log('handle delete item called', { item })
-    const newItems = this.state.shoppingItems.filter(itm => itm !== item)
-    this.setState({
-      shoppingItems: newItems
-    })
-  }*/
-
+  }; 
 
   /*handleAddItem = (itemName) => {
     console.log('handle add item', { itemName })
@@ -68,6 +58,9 @@ class App extends Component {
 
   render() {
     const { store } = this.state
+
+    //console.log({store});
+
     return (
       <main className='App'>
         <header className='App-header'>
@@ -77,6 +70,7 @@ class App extends Component {
           {store.lists.map(list => (
             <List
               key={list.id}
+              id={list.id}
               header={list.header}
               cards={list.cardIds.map(id => store.allCards[id])}
               onDeleteCard={this.handleDeleteCard}

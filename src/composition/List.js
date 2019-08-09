@@ -14,6 +14,7 @@ export default function List(props) {
                         <Card
                             //so where does the card come from, it isn't in store (how is it looping over lists array, how is that array being passed to the function)
                             key={card.id}
+                            id={card.id}
                             title={card.title}
                             content={card.content}
                             onDeleteCard={props.onDeleteCard}
